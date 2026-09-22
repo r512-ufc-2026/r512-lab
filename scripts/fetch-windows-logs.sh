@@ -4,6 +4,9 @@
 # Source : depot public d'echantillons EVTX d'attaque.
 set -u
 
+# Se placer a la racine du depot (parent du dossier scripts), quel que soit son nom
+cd "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
 DEST="windows-logs"
 detect_group() {
     local src="${GITHUB_REPOSITORY:-${RepositoryName:-}}"

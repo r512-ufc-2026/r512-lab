@@ -3,6 +3,9 @@
 # Idempotent : relançable sans risque. Ne fait jamais echouer le Codespace.
 set -u
 
+# Se placer a la racine du depot (parent du dossier scripts), quel que soit son nom
+cd "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
 # Determination du groupe, par ordre de priorite :
 # 1) nom du depot (variable Codespaces) s'il contient cy3a / cy3b
 # 2) fichier .r512-group  3) defaut CY3B
