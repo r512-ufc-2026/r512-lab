@@ -4,6 +4,7 @@
 set -u
 
 GROUP="$(tr -d '[:space:]' < .r512-group 2>/dev/null || echo CY3B)"
+if [ "$GROUP" = "CY3A" ]; then HOSTN="web-app-02"; else HOSTN="web-prod-01"; fi
 IMG="r512-victim"
 NAME="victim"
 
@@ -32,7 +33,7 @@ if ! docker build -q -t "$IMG" victim >/dev/null; then
     exit 0
 fi
 
-docker run -d --name "$NAME" -e R512_GROUP="$GROUP" "$IMG" >/dev/null 2>&1 || true
+docker run -d --name "$NAME" --hostname "$HOSTN" -e R512_GROUP="$GROUP" "$IMG" >/dev/null 2>&1 || true
 sleep 2
 if docker ps --format '{{.Names}}' | grep -qx "$NAME"; then
     echo "Victime demarree (groupe $GROUP). Pour commencer le triage : enter-victim"
