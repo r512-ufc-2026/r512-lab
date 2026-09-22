@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Contenu legitime du site
 COPY app/ /var/www/html/
+RUN mkdir -p /var/www/html/uploads && chown -R www-data:www-data /var/www/html
 
 # Scripts d'amorcage et de mise en scene de l'incident
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
