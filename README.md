@@ -5,13 +5,21 @@ Environnement d'analyse pret a l'emploi, ouvert dans le navigateur via GitHub Co
 ## Demarrage
 
 1. Bouton vert Code, onglet Codespaces, Create codespace on main.
-2. Attendre la fin de la construction, puis la victime demarre seule.
-3. Dans le terminal : enter-victim pour entrer sur le serveur a analyser.
+2. Attendre la fin de la construction. La victime Linux demarre seule et les journaux Windows sont telecharges.
+3. Ouvrir un terminal et commencer le TP.
 
-## Commandes
+## Volet Linux (serveur web compromis)
 
 - start-victim : (re)demarre le serveur compromis.
-- enter-victim : ouvre un shell dessus pour le triage.
+- enter-victim : ouvre un shell dessus pour le triage a chaud.
+
+## Volet Windows (journaux d'evenements)
+
+- fetch-windows-logs : recupere le jeu de journaux (fait automatiquement a la creation).
+- win-timeline : construit la timeline des detections avec Hayabusa.
+- win-hunt : lance la chasse Sigma avec Chainsaw.
+
+Consignes detaillees : voir TP1-windows.md.
 
 ## Outils disponibles
 
