@@ -5,7 +5,14 @@
 set -u
 
 DEST="windows-logs"
-GROUP="$(tr -d '[:space:]' < .r512-group 2>/dev/null || echo CY3B)"
+detect_group() {
+    local src="${GITHUB_REPOSITORY:-${RepositoryName:-}}"
+    src="${src,,}"
+    if [[ "$src" == *cy3a* ]]; then echo "CY3A"; return; fi
+    if [[ "$src" == *cy3b* ]]; then echo "CY3B"; return; fi
+    tr -d '[:space:]' < .r512-group 2>/dev/null || echo "CY3B"
+}
+GROUP="$(detect_group)"
 
 # Deja present : on ne retelecharge pas
 if [ -d "$DEST" ] && [ "$(ls -1 "$DEST"/*.evtx 2>/dev/null | wc -l)" -ge 6 ]; then
