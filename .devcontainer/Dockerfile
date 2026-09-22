@@ -22,9 +22,9 @@ RUN curl -fsSL -o /tmp/chainsaw.tar.gz \
     && git clone --depth 1 https://github.com/SigmaHQ/sigma.git /opt/sigma \
     && rm -rf /tmp/cs /tmp/chainsaw.tar.gz
 
-# Hayabusa (derniere version Linux)
+# Hayabusa (version musl statique, independante de la glibc de l'image)
 RUN url="$(curl -fsSL https://api.github.com/repos/Yamato-Security/hayabusa/releases/latest \
-        | jq -r '.assets[].browser_download_url' | grep -E 'lin-x64-gnu\.zip$' | head -n1)" \
+        | jq -r '.assets[].browser_download_url' | grep -E 'lin-x64-musl\.zip$' | head -n1)" \
     && curl -fsSL -o /tmp/hayabusa.zip "$url" \
     && mkdir -p /opt/hayabusa && unzip -q /tmp/hayabusa.zip -d /opt/hayabusa \
     && bin="$(find /opt/hayabusa -maxdepth 1 -type f -name 'hayabusa-*' ! -name '*.zip' | head -n1)" \
