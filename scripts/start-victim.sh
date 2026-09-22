@@ -3,7 +3,17 @@
 # Idempotent : relançable sans risque. Ne fait jamais echouer le Codespace.
 set -u
 
-GROUP="$(tr -d '[:space:]' < .r512-group 2>/dev/null || echo CY3B)"
+# Determination du groupe, par ordre de priorite :
+# 1) nom du depot (variable Codespaces) s'il contient cy3a / cy3b
+# 2) fichier .r512-group  3) defaut CY3B
+detect_group() {
+    local src="${GITHUB_REPOSITORY:-${RepositoryName:-}}"
+    src="${src,,}"
+    if [[ "$src" == *cy3a* ]]; then echo "CY3A"; return; fi
+    if [[ "$src" == *cy3b* ]]; then echo "CY3B"; return; fi
+    tr -d '[:space:]' < .r512-group 2>/dev/null || echo "CY3B"
+}
+GROUP="$(detect_group)"
 if [ "$GROUP" = "CY3A" ]; then HOSTN="web-app-02"; else HOSTN="web-prod-01"; fi
 IMG="r512-victim"
 NAME="victim"
