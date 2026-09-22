@@ -3,8 +3,9 @@ FROM mcr.microsoft.com/devcontainers/python:1-3.12-bookworm
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Outils systeme : YARA, tshark, Sleuth Kit, utilitaires
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Outils systeme (le depot Yarn de l'image de base, inutile et mal signe, est retire)
+RUN grep -rl yarnpkg /etc/apt/sources.list.d/ | xargs -r rm -f \
+    && apt-get update && apt-get install -y --no-install-recommends \
         yara tshark sleuthkit jq unzip p7zip-full file \
     && rm -rf /var/lib/apt/lists/*
 
